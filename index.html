@@ -156,7 +156,7 @@ footer .disc{max-width:560px;line-height:1.7}
 <header>
   <div class="wrap bar">
     <div class="logo serif">Barawell<sup>+</sup></div>
-    <a class="cta" href="#chat" data-wa><svg><use href="#wa"/></svg><span>Konsultasi Gratis</span></a>
+    <a class="cta" href="https://wa.me/628986658030?text=Halo%20Barawell%2C%20saya%20mau%20konsultasi%20kesehatan%20pria." data-wa><svg><use href="#wa"/></svg><span>Konsultasi Gratis</span></a>
   </div>
 </header>
 
@@ -168,7 +168,7 @@ footer .disc{max-width:560px;line-height:1.7}
       <h1 class="serif">Energi mulai turun, gampang capek, susah <em>fokus</em>?</h1>
       <p class="lead">Bukan cuma soal umur. Stres kerja, kurang tidur, dan stamina yang menurun bisa diatasi — mulai dari ngobrol santai dengan tim medis kami, gratis dan tanpa dihakimi.</p>
       <div class="actions">
-        <a class="cta" href="#chat" data-wa><svg><use href="#wa"/></svg>Mulai Konsultasi di WhatsApp</a>
+        <a class="cta" href="https://wa.me/628986658030?text=Halo%20Barawell%2C%20saya%20mau%20konsultasi%20kesehatan%20pria." data-wa><svg><use href="#wa"/></svg>Mulai Konsultasi di WhatsApp</a>
         <a class="cta ghost" href="#cara">Lihat cara kerjanya</a>
       </div>
       <div class="trustline">
@@ -331,6 +331,16 @@ document.querySelectorAll('.qa').forEach(function(d){
 // scroll reveal
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});
 document.querySelectorAll('.reveal').forEach(function(el){io.observe(el)});
+
+// Google Ads conversion: kirim event dulu, baru buka WhatsApp
+function gtagSendEvent(url){
+  var callback=function(){ if(typeof url==='string'){ window.location=url; } };
+  gtag('event','manual_event_SUBMIT_LEAD_FORM',{ 'event_callback':callback, 'event_timeout':2000 });
+  return false;
+}
+document.querySelectorAll('a[href*="wa.me"]').forEach(function(a){
+  a.addEventListener('click',function(e){ e.preventDefault(); gtagSendEvent(a.href); });
+});
 </script>
 </body>
 </html>
